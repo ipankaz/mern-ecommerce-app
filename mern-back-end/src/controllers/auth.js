@@ -44,8 +44,8 @@ exports.signin = (req, res) => {
     if (user) {
       const { _id, firstName, lastName, email, role, fullName } = user;
       if (user.authenticate(req.body.password)) {
-        const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, {
-          expiresIn: "1h",
+        const token = jwt.sign({ _id: user._id ,role:user.role}, process.env.SECRET_KEY, {
+          expiresIn: "12h",
         });
         res.status(200).json({
           token,
@@ -56,6 +56,8 @@ exports.signin = (req, res) => {
           message: "Invalid Password",
         });
       }
+    }else{
+      return res.status(400).json({message:"no user found"})
     }
   });
 };
