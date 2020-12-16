@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav,  Container } from "react-bootstrap";
 import {Link,NavLink} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {signOut} from '../../actions/auth.action'
+import {signout} from '../../actions/auth.action'
 
 /**
  * @author
@@ -15,7 +15,7 @@ const Header = (props) => {
   const dispatch = useDispatch()
 
   function logout(){
-    dispatch(signOut())
+    dispatch(signout())
   }
 
   const renderLoggedInLinks = () => {

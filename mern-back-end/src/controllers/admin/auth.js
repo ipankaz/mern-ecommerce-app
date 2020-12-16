@@ -44,6 +44,8 @@ exports.signin = (req, res) => {
         const token = jwt.sign({ _id: user._id,role:user.role }, process.env.SECRET_KEY, {
           expiresIn: "12h",
         });
+        res.cookie('token',token,{expiresIn:"12h"})
+        
         res.status(200).json({
           token,
           user: { _id, firstName, lastName, email, role, fullName },
@@ -56,10 +58,15 @@ exports.signin = (req, res) => {
     }
   });
 };
-exports.requireSignin = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const user = jwt.verify(token, process.env.SECRET_KEY);
-  req.user = user;
 
-  next();
-};
+exports.signout = (req,res,next)=>{
+  res.clearCookie('token')
+  res.status(200).send({message:"Signout Successfully"})
+}
+// exports.requireSignin = (req, res, next) => {
+//   const token = req.headers.authorization.split(" ")[1];
+//   const user = jwt.verify(token, process.env.SECRET_KEY);
+//   req.user = user;
+
+//   next();
+// };

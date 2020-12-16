@@ -15,6 +15,7 @@ const initAuthState = {
 }
 
 const authReducer = (state = initAuthState,action)=>{
+    console.log(action);
     
     switch(action.type){
 
@@ -35,7 +36,20 @@ const authReducer = (state = initAuthState,action)=>{
         break
         case authConstants.LOGOUT_REQUEST:
             state = {
+                ...state,
+                loading:true
+            }
+            break
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
                 ...initAuthState
+            }
+            break
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error:action.payload.error,
+                loading:false
             }
             break
         default :state={...state}
