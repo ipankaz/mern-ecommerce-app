@@ -2,6 +2,8 @@ import React from "react";
 import {Container,Form,Row,Col,Button} from 'react-bootstrap'
 import Layout from '../../components/layout/index'
 import Input from '../../components/UI/Input/index'
+import {  useSelector} from "react-redux";
+import {Redirect} from 'react-router-dom'
 
 /**
  * @author
@@ -9,6 +11,11 @@ import Input from '../../components/UI/Input/index'
  **/
 
 const Signup = (props) => {
+  const auth = useSelector(state=>state.auth)
+  if(auth.authenticate){
+    return <Redirect to='/'/>
+  }
+
   return (
     <Layout>
       <Container>

@@ -3,6 +3,7 @@ const env = require('dotenv')
 const mongoose = require('mongoose')
 const app = express();
 const path = require('path')
+const cors = require('cors')  // to fetch backend api : cors policy
 
 const authRoutes  = require('./routes/auth')
 const categoryRoutes  = require('./routes/category')
@@ -24,6 +25,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO
         console.log("Database connected");
     })
 
+app.use(cors())
 app.use(express.json())
 app.use('/public',express.static(path.join(__dirname,'uploads')))
 app.use('/api',authRoutes)
