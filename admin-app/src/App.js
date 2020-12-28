@@ -5,10 +5,13 @@ import Home from './containers/Home';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import Products from './containers/Products';
+import Category from './containers/Category';
 import Orders from './containers/Orders';
 import PrivateRoute from './components/HOC/PrivateRoute'
 import {isUserLoggedIn} from './actions/auth.action'
 import { useDispatch , useSelector} from "react-redux";
+// import { getAllCategories } from "./actions/category.action";
+import { getInitialData } from './actions/initialData.action';
 
 
 function App() {
@@ -19,6 +22,8 @@ function App() {
     if(!auth.authenticate){
       dispatch(isUserLoggedIn())
     }
+    // dispatch(getAllCategories());
+    dispatch(getInitialData());
   },[])
 
   return (
@@ -26,6 +31,7 @@ function App() {
     <Router>
       <Switch>
         <PrivateRoute exact path="/" component={Home}/>
+        <PrivateRoute  path="/category" component={Category}/>
         <PrivateRoute  path="/products" component={Products}/>
         <PrivateRoute  path="/orders" component={Orders}/>
         <Route  path="/signin" component={Signin}/>

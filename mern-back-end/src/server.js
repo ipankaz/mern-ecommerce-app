@@ -5,11 +5,13 @@ const app = express();
 const path = require('path')
 const cors = require('cors')  // to fetch backend api : cors policy
 
+// Routes
 const authRoutes  = require('./routes/auth')
 const categoryRoutes  = require('./routes/category')
 const productRoutes  = require('./routes/product')
 const adminRoutes  = require('./routes/admin/auth')
 const cartRoutes  = require('./routes/cart')
+const initialData  = require('./routes/admin/initialData')
 
 //enviornment variable or you can say constants
 env.config()
@@ -33,6 +35,7 @@ app.use('/api',adminRoutes)
 app.use('/api',categoryRoutes)
 app.use('/api',productRoutes)
 app.use('/api',cartRoutes)
+app.use('/api',initialData)
 
 app.listen(process.env.PORT,()=>{
     console.log(`server started on https://localhost:${process.env.PORT}`);

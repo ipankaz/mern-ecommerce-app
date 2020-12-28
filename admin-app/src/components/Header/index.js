@@ -22,7 +22,7 @@ const Header = (props) => {
     return (
       <Nav>
         <li className="nav-item">
-          <span className="nav-link" onClick={logout}>
+          <span style={{cursor:"pointer"}} className="nav-link" onClick={logout}>
             Signout
           </span>
         </li>
@@ -50,10 +50,10 @@ const Header = (props) => {
 
   return (
     
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style ={{zIndex:1}}>
+      <Navbar collapseOnSelect fixed="top" expand="lg" bg="dark" variant="dark" style ={{zIndex:1}}>
         <Container fluid>
           {/* <Navbar.Brand href="#home">Admin</Navbar.Brand> */}
-          <Link to="/" className="navbar-brand">Admin</Link>
+          <Link to="/" className="navbar-brand">Admin Dashboard</Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>

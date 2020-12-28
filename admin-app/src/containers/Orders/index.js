@@ -6,7 +6,7 @@ import Layout from '../../components/layout/index'
 * @function Products
 **/
 
-const Products = (props) => {
+const Orders = (props) => {
   return(
     <Layout sidebar>
         Orders
@@ -15,4 +15,4 @@ const Products = (props) => {
 
  }
 
-export default Products
+export default Orders
