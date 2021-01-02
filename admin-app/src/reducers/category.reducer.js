@@ -24,15 +24,16 @@ if(parentId===undefined){
 
 for(let cat of categories){
     if(cat._id===parentId){
-        myCategories.push({
+   const _newCategory = {
+    _id:newCategory._id,
+    name:newCategory.name,
+    slug:newCategory.slug,
+    parentId:newCategory.parentId,
+    children:[],
+}
+           myCategories.push({
             ...cat,
-            children:cat.children  ? buildNewCategory(parentId,[...cat.children,{
-               _id:newCategory._id,
-                name:newCategory.name,
-                slug:newCategory.slug,
-                parentId:newCategory.parentId,
-                children:newCategory.children,
-            }],newCategory) :[]
+            children:cat.children.length > 0  ? [...cat.children , _newCategory] :[_newCategory]
         })
     }else{
         myCategories.push({

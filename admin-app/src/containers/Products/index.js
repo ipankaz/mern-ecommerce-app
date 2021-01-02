@@ -73,8 +73,8 @@ const Products = (props) => {
         handleClose={handleClose}
         onHide={handleClose}
         modalTitle={"Add New Product"}
-        createProduct={createProduct}
-        task={"addNewProduct"}
+        action={createProduct}
+        _task={"Add Product"}
       >
         <Input
           label="Name"

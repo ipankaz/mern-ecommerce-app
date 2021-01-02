@@ -8,11 +8,13 @@ import {  Modal,Button } from "react-bootstrap";
 
 const NewModal = (props) => {
 
+  const {_task , action} = props
+
   const task = ()=>{
-     if(props.task==="addNewProduct" || props.task==="addNewCategory"){
+     if(_task){
        return (
-         <Button variant="primary" onClick={(props.createCategory)?props.createCategory:props.createProduct}>
-            Add
+         <Button variant={props.color ? props.color : "primary"} onClick={action}>
+           {_task}
           </Button>
        )
      }
@@ -27,12 +29,9 @@ const NewModal = (props) => {
             {props.children}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Close
-          </Button>
-          {task()}
-          
-        </Modal.Footer>
+         <Button variant="secondary" onClick={props.handleClose}> Close </Button>
+           {task()}
+           </Modal.Footer>
       </Modal>
    )
 
