@@ -18,3 +18,25 @@ export const getProductsBySlug = (slug)=>{
         
     }
 }
+
+export const getProductsPage = (payload)=>{
+    return async dispatch =>{
+        try{
+            const {cid,type} = payload.params
+            dispatch({type:productConstants.GET_PRODUCT_PAGE_REQUEST})
+            const res = await axios.get(`/page/${cid}/${type}`)
+            console.log(res)
+            if(res.status===200){
+                dispatch({type:productConstants.GET_PRODUCT_PAGE_SUCCESS,
+                payload:{page:res.data.page}})
+             }
+             else{
+                dispatch({type:productConstants.GET_PRODUCT_PAGE_FAILURE,
+                    payload:{page:res.data.error}})
+             }
+        }catch(error){
+           console.log(error)
+        }
+        
+    }
+}

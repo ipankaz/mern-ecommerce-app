@@ -4,4 +4,5 @@ export * from './order.action'
 export * from './product.action'
 export * from './user.action'
 export * from './initialData.action'
+export * from './page.action'
 

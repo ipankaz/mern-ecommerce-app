@@ -1,11 +1,12 @@
 import Layout from "../../components/layout/index";
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table, Button} from "react-bootstrap";
 import React, { useState } from "react";
 import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
 import { generatePublicUrl } from '../../urlConfig';
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../actions/product.action";
+import { IoIosAdd,} from "react-icons/io";
 import './style.css';
 
 /**
@@ -42,8 +43,13 @@ const Products = (props) => {
   };
 
   const createProduct = () => {
-    const form = new FormData();
+if(productName==="" || quantity==="" || categoryId === "" || 
+productPrice==="" || productImage.length===0){
+  alert("Fields Empty")
+  return;
+}
 
+    const form = new FormData();
     form.append("name", productName);
     form.append("quantity", quantity);
     form.append("category", categoryId);
@@ -232,9 +238,12 @@ const Products = (props) => {
       <Container>
         <Row>
           <Col md={12}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div  style={{display: "flex", justifyContent : "space-between", marginBottom:"20px", marginTop:"10px"}} >
               <h3>Products</h3>
-              <button onClick={handleShow}>Add</button>
+              <div className="actionBtnContainer">
+              <Button variant="success" onClick={handleShow}><IoIosAdd/><span>Add</span></Button>
+              </div>
+              
             </div>
           </Col>
         </Row>

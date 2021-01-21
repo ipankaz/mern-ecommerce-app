@@ -7,6 +7,7 @@ import Signup from './containers/Signup';
 import Products from './containers/Products';
 import Category from './containers/Category';
 import Orders from './containers/Orders';
+import NewPage from './containers/NewPage'
 import PrivateRoute from './components/HOC/PrivateRoute'
 import {isUserLoggedIn} from './actions/auth.action'
 import { useDispatch , useSelector} from "react-redux";
@@ -22,15 +23,19 @@ function App() {
     if(!auth.authenticate){
       dispatch(isUserLoggedIn())
     }
-    // dispatch(getAllCategories());
-    dispatch(getInitialData());
-  },[])
+    if(auth.authenticate){
+      dispatch(getInitialData());
+    }
+    
+    
+  },[auth.authenticate,dispatch])
 
   return (
     <>
     <Router>
       <Switch>
         <PrivateRoute exact path="/" component={Home}/>
+        <PrivateRoute exact path="/page" component={NewPage}/>
         <PrivateRoute  path="/category" component={Category}/>
         <PrivateRoute  path="/products" component={Products}/>
         <PrivateRoute  path="/orders" component={Orders}/>

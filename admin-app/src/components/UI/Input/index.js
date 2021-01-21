@@ -7,12 +7,43 @@ import { Form } from "react-bootstrap";
  **/
 
 const Input = (props) => {
-  return (
-    <Form.Group controlId="formBasicPassword">
+
+  let input = null;
+  switch(props.type){
+    case 'select':
+      input = <Form.Group>
+                {props.label && <Form.Label>{props.label}</Form.Label>}
+                <select
+                  className={props.className}
+                  value={props.value}
+                  onChange={props.onChange}
+                >
+                  <option value="">{props.placeholder}</option>
+                  {
+                    props.options.length > 0 ?
+                    props.options.map((option, index) =>
+                      <option key={index} value={option.value}>{option.name}</option>
+                    ) : null
+                  }
+                </select>
+            </Form.Group>
+      break;
+    case 'text':
+    default:
+      input = <Form.Group controlId="formBasicPassword">
       {props.label && <Form.Label>{props.label}</Form.Label>}
-      <Form.Control type={props.type} placeholder={props.placeholder} value={props.value} onChange={props.onChange} />
+      <Form.Control 
+      type={props.type}
+       placeholder={props.placeholder}
+        value={props.value} 
+        onChange={props.onChange} 
+        className={props.className}/>
       <Form.Text className="text-muted">{props.message}</Form.Text>
     </Form.Group>
+  }
+
+  return (
+    input
   );
 };
 

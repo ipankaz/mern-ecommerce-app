@@ -13,7 +13,7 @@ const NewModal = (props) => {
   const task = ()=>{
      if(_task){
        return (
-         <Button variant={props.color ? props.color : "primary"} onClick={action}>
+         <Button className="btn-sm" variant={props.color ? props.color : "primary"} onClick={action}>
            {_task}
           </Button>
        )
@@ -29,7 +29,7 @@ const NewModal = (props) => {
             {props.children}
         </Modal.Body>
         <Modal.Footer>
-         <Button variant="secondary" onClick={props.handleClose}> Close </Button>
+         <Button className="btn-sm" variant="secondary" onClick={props.handleClose}> Close </Button>
            {task()}
            </Modal.Footer>
       </Modal>

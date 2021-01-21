@@ -1,7 +1,7 @@
 import axios from '../helpers/axios'
 import { categoryConstants } from './constants';
 
-export const getAllCategories = ()=>{
+ const getAllCategories = ()=>{
     return async dispatch =>{
         dispatch({type:categoryConstants.GET_ALL_CATEGORIES_REQUEST})
         const res = await axios.get('/category/getcategories')
@@ -37,36 +37,46 @@ export const addCategory = (form) => {
         }else{
             dispatch({
                 type: categoryConstants.ADD_NEW_CATEGORY_FAILURE,
-                payload: res.data.error
+                payload: {error:res.data.error}
             });
         }
     }
 }
 export const updateCategory = (form) => {
     return async dispatch => {
-        
+        dispatch({type:categoryConstants.UPDATE_CATEGORIES_REQUEST})
         const res = await axios.post(`/category/update`, form);
         if(res.status === 201){
-            console.log(res)
-            return true;
-           
-            
+            dispatch({type:categoryConstants.UPDATE_CATEGORIES_SUCCESS})
+            dispatch(getAllCategories())
         }else{
-           console.log(res)
+            dispatch({
+                type:categoryConstants.UPDATE_CATEGORIES_FAILURE,
+                payload:{
+                    error:res.data.error
+                }
+            })
         }
     }
 }
 export const deleteCategoryAction = (idsArray) => {
     return async dispatch => {
+        dispatch({type:categoryConstants.DELETE_CATEGORIES_REQUEST})
         const res = await axios.post(`/category/delete`, {
             payload:{
                 idsArray
             }});
             if(res.status===200){
-                return true
+                dispatch({type:categoryConstants.DELETE_CATEGORIES_SUCCESS})
+                dispatch(getAllCategories())
+                
             }else{
-                return false
-            }
+                dispatch({type:categoryConstants.DELETE_CATEGORIES_FAILURE,
+                payload:{
+                   error:res.data.error
+                }})}
         
     }
 }
+
+export {getAllCategories}
