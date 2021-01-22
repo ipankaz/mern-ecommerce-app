@@ -23,7 +23,9 @@ export const getProductsPage = (payload)=>{
     return async dispatch =>{
         try{
             const {cid,type} = payload.params
+            
             dispatch({type:productConstants.GET_PRODUCT_PAGE_REQUEST})
+            
             const res = await axios.get(`/page/${cid}/${type}`)
             console.log(res)
             if(res.status===200){

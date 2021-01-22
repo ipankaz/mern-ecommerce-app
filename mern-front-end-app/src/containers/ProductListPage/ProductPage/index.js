@@ -1,48 +1,84 @@
-import React from 'react'
-import getParams from '../../../utils/getParams'
-import {useDispatch , useSelector} from 'react-redux'
-import{getProductsPage} from '../../../actions/product.action'
+import React from "react";
+import getParams from "../../../utils/getParams";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsPage } from "../../../actions/product.action";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-
+import { Carousel } from "react-responsive-carousel";
+import Card from "../../../components/UI/Card";
 
 /**
-* @author
-* @function ProductPage
-**/
+ * @author
+ * @function ProductPage
+ **/
 
 const ProductPage = (props) => {
-
-  const dispatch = useDispatch()
-  const params = getParams(props.location.search)
-  const product = useSelector(state=>state.product)
-  const {page} = product
+  const dispatch = useDispatch();
+  const params = getParams(props.location.search);
+  const product = useSelector((state) => state.product);
+  const { page } = product;
 
   // useEffect(()=>{
   //  const payload ={params}
   //  dispatch(getProductsPage(payload))
-  // },[params])
+  // },[dispatch, params])
 
-  const dispatchProductPageAction = ()=>{
-    const payload ={params}
-    dispatch(getProductsPage(payload))
-  }
+  const dispatchProductPageAction = () => {
+    const payload = { params };
+    dispatch(getProductsPage(payload));
+  };
 
-  return(
+  return (
     <>
-    <button onClick={dispatchProductPageAction}>Dispatch Product Page Action</button>
-    <h3>{page.title}</h3>
-   { page.products && <img src={page.products[0].img}/>}
-    <Carousel>
-      {page.banners && page.banners.map((banner,index)=>
-      <div key={index}>
-        <img src={banner.img} alt=""/>
+      <button onClick={dispatchProductPageAction}>
+        Dispatch Product Page Action
+      </button>
+      <div>
+        <h3>{page.title}</h3>
+        <Carousel renderThumbs={() => {}}>
+          {page.banners &&
+            page.banners.map((banner, index) => (
+              // eslint-disable-next-line jsx-a11y/anchor-is-valid
+              <a
+                key={index}
+                style={{ display: "block" }}
+                href={banner.navigateTo}
+              >
+                <img src={banner.img} alt="" />
+              </a>
+            ))}
+        </Carousel>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            margin: "10px 0px",
+          }}
+        >
+          {page.products &&
+            page.products.map((pro, index) => (
+              <Card
+                style={{
+                  height: "400px",
+                  width: "200px",
+                  margin: "5px",
+                }}
+                key={index}
+              >
+                <img
+                  src={pro.img}
+                  alt=""
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                  }}
+                />
+              </Card>
+            ))}
+        </div>
       </div>
-      )}
-    </Carousel>
     </>
-   )
+  );
+};
 
- }
-
-export default ProductPage
+export default ProductPage;
