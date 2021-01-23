@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsBySlug } from "../../../actions/product.action";
 import { generatePublicUrl } from "../../../urlConfig";
+import {Link} from 'react-router-dom'
 
 /**
  * @author
  * @function ProductStore
  **/
+let element=true;
 
 const ProductStore = (props) => {
   const dispatch = useDispatch();
@@ -21,17 +23,19 @@ const ProductStore = (props) => {
     under30k: 30000,
   };
 
-  function getProducts() {
-    const { match } = props;
-    dispatch(getProductsBySlug(match.params.slug));
-  }
+  useEffect(()=>{
+    if(element){
+      const { match } = props;
+      dispatch(getProductsBySlug(match.params.slug));
+    }
+    element=false;
+  })
 
   return (
     <>
-      <button onClick={getProducts}>Get Products</button>
       {Object.keys(product.productsByPrice).map((key, index) => {
         return (
-          <div className="card">
+          <div key={index} className="card">
             <div className="cardHeader">
               <div>
                 {props.match.params.slug} Mobiles under {priceRange[key]}
@@ -39,8 +43,13 @@ const ProductStore = (props) => {
               <button>View All</button>
             </div>
             <div className="allProducts">
-              {product.productsByPrice[key].map((product) => (
-                <div className="productContainer">
+              {product.productsByPrice[key].map((product,index) => (
+
+                <Link style={{display:"block"}} 
+                to={`/${product.slug}/${product._id}/p`}
+                className="productContainer"
+                key={index}
+                >
                   <div className="productImgContainer">
                     <img
                       src={generatePublicUrl(product.productPictures[0].img)}
@@ -55,7 +64,8 @@ const ProductStore = (props) => {
                     </div>
                     <div className="productPrice">{product.price}</div>
                   </div>
-                </div>
+                </Link>
+
               ))}
             </div>
           </div>

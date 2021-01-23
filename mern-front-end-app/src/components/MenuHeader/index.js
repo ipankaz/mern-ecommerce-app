@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../actions/index";
 import "./style.css";
@@ -7,14 +7,18 @@ import "./style.css";
  * @author
  * @function MenuHeader
  **/
+let element = true;
 
 const MenuHeader = (props) => {
   const category = useSelector((state) => state.category);
   const dispatch = useDispatch();
 
-  function getCategories() {
-    dispatch(getAllCategories());
-  }
+  useEffect(()=>{
+    if(element){
+      dispatch(getAllCategories());
+    }
+    element=false;
+  })
 
   const renderCategories = (categories) => {
     let myCategories = [];
@@ -44,7 +48,7 @@ const MenuHeader = (props) => {
           ? renderCategories(category.categories)
           : null}
       </ul>
-      <button onClick={getCategories}>Get</button>
+      
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect} from "react";
 import getParams from "../../../utils/getParams";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsPage } from "../../../actions/product.action";
@@ -10,6 +10,7 @@ import Card from "../../../components/UI/Card";
  * @author
  * @function ProductPage
  **/
+let element=true;
 
 const ProductPage = (props) => {
   const dispatch = useDispatch();
@@ -17,21 +18,16 @@ const ProductPage = (props) => {
   const product = useSelector((state) => state.product);
   const { page } = product;
 
-  // useEffect(()=>{
-  //  const payload ={params}
-  //  dispatch(getProductsPage(payload))
-  // },[dispatch, params])
-
-  const dispatchProductPageAction = () => {
-    const payload = { params };
-    dispatch(getProductsPage(payload));
-  };
+  useEffect(()=>{
+    if(element){
+      const payload ={params}
+      dispatch(getProductsPage(payload))
+    }
+   element=false;
+  })
 
   return (
     <>
-      <button onClick={dispatchProductPageAction}>
-        Dispatch Product Page Action
-      </button>
       <div>
         <h3>{page.title}</h3>
         <Carousel renderThumbs={() => {}}>

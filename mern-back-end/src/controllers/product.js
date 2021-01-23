@@ -25,13 +25,14 @@ exports.createProduct = (req,res,next)=>{
     product.save((error,products)=>{
         if(error){
             res.status(400).json({error})
-        }if(products){
+        }else if(products){
             res.status(200).json({products})
         }
     })
     }
 
     exports.getProductsBySlug = (req,res)=>{
+        
         const {slug} = req.params
         Category.findOne({slug:slug}).select('_id')
         .exec((error,category)=>{
@@ -62,5 +63,21 @@ exports.createProduct = (req,res,next)=>{
         })
         
     }
+
+    exports.getProductDetailsById = (req, res) => {
+        
+        const { productId } = req.params;
+    
+        if (productId) {
+          Product.findOne({ _id: productId }).exec((error, product) => {
+            if (error) return res.status(400).json({ error });
+            if (product) {
+              res.status(200).json({ product });
+            }
+          });
+        } else {
+          return res.status(400).json({ error: "Params required" });
+        }
+      };
 
    
