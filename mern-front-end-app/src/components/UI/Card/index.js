@@ -1,17 +1,22 @@
-import React from 'react'
-import './style.css'
+import React from "react";
+import "./style.css";
 /**
-* @author
-* @function Card
-**/
+ * @author
+ * @function Card
+ **/
 
 const Card = (props) => {
-  return(
+  return (
     <div {...props} className="card">
-        {props.children}
+
+      <div className="cardHeader">
+        {props.headerleft && <div>{props.headerleft}</div>}
+        {props.headerright && <div>{props.headerright}</div>}
+      </div>
+
+      {props.children}
     </div>
-   )
+  );
+};
 
- }
-
-export default Card
+export default Card;

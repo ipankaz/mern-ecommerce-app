@@ -6,6 +6,8 @@ import HomePage from './containers/HomePage';
 import {useSelector,useDispatch} from 'react-redux'
 import {isUserLoggedIn} from './actions/auth.action'
 import ProductDetailsPage from './containers/ProductDetailsPage';
+import Cart from './containers/CartPage';
+import {updateCart} from './actions/cart.action'
 
 
 function App() {
@@ -18,11 +20,17 @@ if(!auth.authenticate){
 }
   },[auth.authenticate, dispatch])
 
+  useEffect(() => {
+    console.log("App.js - updateCart");
+    dispatch(updateCart());
+  }, [auth.authenticate,dispatch]);
+
   return (
     <div className="App">
      <Router>
        <Switch>
          <Route exact path ='/' component={HomePage}></Route>
+         <Route exact path ='/cart' component={Cart}></Route>
          <Route  path ='/:productSlug/:productId/p' component={ProductDetailsPage}></Route>
          <Route  path ='/:slug' component={ProductListPage}></Route>
        </Switch>

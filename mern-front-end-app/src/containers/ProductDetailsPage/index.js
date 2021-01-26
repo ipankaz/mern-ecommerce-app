@@ -8,6 +8,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { MaterialButton } from "../../components/MaterialUI";
 import "./style.css";
 import { generatePublicUrl } from '../../urlConfig';
+import {addToCart} from '../../actions/cart.action'
 
 /**
  * @author
@@ -67,9 +68,9 @@ const ProductDetailsPage = (props) => {
                 }}
                 icon={<IoMdCart />}
                 onClick={() => {
-                  // const { _id, name, price } = product.productDetails;
-                  // const img = product.productDetails.productPictures[0].img;
-                  
+                  const { _id, name, price } = product.productDetails;
+                  const img = product.productDetails.productPictures[0].img;
+                  dispatch(addToCart({ _id, name, price, img }));
                   props.history.push(`/cart`);
                 }}
               />
