@@ -21,8 +21,7 @@ if(!auth.authenticate){
   },[auth.authenticate, dispatch])
 
   useEffect(() => {
-    console.log("App.js - updateCart");
-    dispatch(updateCart());
+     dispatch(updateCart());
   }, [auth.authenticate,dispatch]);
 
   return (
