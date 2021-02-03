@@ -9,6 +9,7 @@ import ProductDetailsPage from './containers/ProductDetailsPage';
 import Cart from './containers/CartPage';
 import {updateCart} from './actions/cart.action'
 import CheckoutPage from './containers/CheckoutPage';
+import OrderPage from './containers/OrderPage';
 
 
 function App() {
@@ -32,6 +33,7 @@ if(!auth.authenticate){
          <Route exact path ='/' component={HomePage}></Route>
          <Route exact path ='/cart' component={Cart}></Route>
          <Route exact path ='/checkout' component={CheckoutPage}></Route>
+         <Route  path ='/account/orders' component={OrderPage}></Route>
          <Route  path ='/:productSlug/:productId/p' component={ProductDetailsPage}></Route>
          <Route  path ='/:slug' component={ProductListPage}></Route>
        </Switch>

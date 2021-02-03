@@ -5,6 +5,7 @@ import ProductStore from "./ProductStore";
 import ProductPage from "./ProductPage";
 import ProductProducts from "./ProductProducts";
 import getParams from '../../utils/getParams'
+import ClothingAndAccessories from './ClothingAndAccessories'
 
 /**
  * @author
@@ -27,7 +28,7 @@ const ProductListPage = (props) => {
             content = <ProductProducts {...props}/>
       break;
       default : 
-            content = null
+            content = <ClothingAndAccessories {...props}/>
     }
     return content
   }

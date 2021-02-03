@@ -180,6 +180,11 @@ productPrice==="" || productImage.length===0){
       return null;
     }
 
+    const deleteProduct=()=>{
+      console.log(productDetails._id)
+      setProductDetailModal(false);
+    }
+
     return (
       <Modal
         show={productDetailModal}
@@ -187,9 +192,10 @@ productPrice==="" || productImage.length===0){
         modalTitle={"Product Details"}
         size="lg"
         onHide={handleCloseProductDetailsModal}
+        action={deleteProduct}
         task={"showProduct"}
-        
-        
+        _task={"Delete Product"}
+        color={"danger"}
       >
         <Row >
           <Col md="6">

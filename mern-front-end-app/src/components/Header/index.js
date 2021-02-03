@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import authAction from "../../actions/auth.action";
 import {signout} from '../../actions/auth.action'
+import {  useHistory } from "react-router-dom";
 
 /**
  * @author
@@ -24,6 +25,7 @@ const Header = (props) => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
+  const history = useHistory()
 
   const userLogin = () => {
     dispatch(authAction({ email, password }));
@@ -80,7 +82,11 @@ const Header = (props) => {
             href: `/account/orders`,
             icon: null,
             onClick: () => {
-              !auth.authenticate && setLoginModal(true);
+              if(!auth.authenticate){
+                   setLoginModal(true);
+                  history.push('/account/orders')
+                  }
+              
             },
           },
           { label: "Wishlist", href: "", icon: null },
@@ -204,7 +210,7 @@ const Header = (props) => {
             ]}
           />
           <div>
-            <a href="/" className="cart">
+            <a href="/cart" className="cart">
               <IoIosCart />
               <span style={{ margin: "0 10px" }}>Cart</span>
             </a>

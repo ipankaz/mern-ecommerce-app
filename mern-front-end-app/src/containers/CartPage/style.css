@@ -4,3 +4,8 @@
     margin: 15px auto;
     justify-content: space-between;
 }
+.emptyCart{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

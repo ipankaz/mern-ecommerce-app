@@ -8,12 +8,12 @@ import "./style.css";
 const Card = (props) => {
   return (
     <div {...props} className="card">
-
-      <div className="cardHeader">
-        {props.headerleft && <div>{props.headerleft}</div>}
-        {props.headerright && <div>{props.headerright}</div>}
-      </div>
-
+{(props.headerleft || props.headerright ) && (
+  <div className="cardHeader">
+  {props.headerleft && <div>{props.headerleft}</div>}
+  {props.headerright && <div>{props.headerright}</div>}
+</div>
+)}
       {props.children}
     </div>
   );
