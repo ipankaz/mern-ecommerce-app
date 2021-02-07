@@ -120,6 +120,7 @@ export const getOrder = (payload) => {
     try {
       const res = await axios.post(`/getOrder`, payload);
       dispatch({ type: userConstants.GET_USER_ORDER_DETAILS_REQUEST });
+      console.log(res);
       if (res.status === 200) {
         console.log(res);
         const { order } = res.data;

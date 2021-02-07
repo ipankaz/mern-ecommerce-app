@@ -15,6 +15,7 @@ const cartRoutes  = require('./routes/cart')
 const initialData  = require('./routes/admin/initialData')
 const addressRoutes = require('./routes/address')
 const orderRoutes = require('./routes/order')
+const adminOrderRoutes = require('./routes/admin/order.routes')
 
 //enviornment variable or you can say constants
 env.config()
@@ -42,6 +43,7 @@ app.use('/api',initialData)
 app.use('/api',pageRoutes)
 app.use('/api',addressRoutes)
 app.use('/api',orderRoutes)
+app.use('/api',adminOrderRoutes)
 
 app.listen(process.env.PORT,()=>{
     console.log(`server started on https://localhost:${process.env.PORT}`);

@@ -23,6 +23,11 @@ const Header = (props) => {
   const [loginModal, setLoginModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [signup,setSignup] = useState(false);
+  const[firstName,setFirstName] = useState("")
+  const[lastName,setLastName] = useState("")
+
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
   const history = useHistory()
@@ -69,6 +74,7 @@ const Header = (props) => {
             className="loginButton"
             onClick={() => {
               setLoginModal(true);
+              setSignup(false);
             }}
           >
             Login
@@ -95,13 +101,21 @@ const Header = (props) => {
         ]}
         firstMenu={
           <div className="firstmenu">
-            <span>New Customer?</span>
+            <span
+            onClick={() => {
+              setLoginModal(true)
+              setSignup(true)
+              
+            }}
+            style={{ cursor:"pointer"}}
+            >New Customer?</span>
             <span
               onClick={() => {
                 setLoginModal(true)
+                setSignup(true)
                 
               }}
-              style={{ color: "#2874f0" }}
+              style={{ color: "#2874f0" , cursor:"pointer"}}
             >
               Sign Up
             </span>
@@ -117,7 +131,7 @@ const Header = (props) => {
         <div className="authContainer">
           <div className="row">
             <div className="leftspace">
-              <h2 style={{ cursor: "default" }}>Login</h2>
+              <h2 style={{ cursor: "default" }}>{signup ? "Sign up" : "Login"}</h2>
               <p style={{ cursor: "default" }}>
                 Get access to your Orders, Wishlist and Recommendations
               </p>
@@ -125,6 +139,24 @@ const Header = (props) => {
             <div className="rightspace">
               
               <div className="loginInputContainer">
+
+                {signup && (
+                  <MaterialInput
+                  type="text"
+                  label="Enter First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                )}
+                {signup && (
+                  <MaterialInput
+                  type="text"
+                  label="Enter Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                )}
+
                 <MaterialInput
                   type="text"
                   label="Enter Email/Enter Mobile Number"
@@ -140,21 +172,25 @@ const Header = (props) => {
                   rightElement={<a href="/">Forgot?</a>}
                 />
                 <MaterialButton
-                  title="Login"
+                  title={signup ? "Sign up" : "Login"}
                   bgColor="#fb641b"
                   textColor="#ffffff"
                   style={{ margin: "40px 0px 20px 0px" }}
                   onClick={userLogin}
                 />
 
-                <p style={{ textAlign: "center", cursor: "default" }}>OR</p>
+                {!signup && <p style={{ textAlign: "center", cursor: "default" }}>OR</p>}
 
+                {!signup && 
                 <MaterialButton
-                  title="Request OTP"
-                  bgColor="#ffffff"
-                  textColor="#2874f0"
-                  style={{ margin: "20px 0px" }}
-                />
+                title="Request OTP"
+                bgColor="#ffffff"
+                textColor="#2874f0"
+                style={{ margin: "20px 0px" }}
+              />
+                }
+
+                
               </div>
             </div>
           </div>
