@@ -34,9 +34,9 @@ const Signin = (props) => {
   }
 
   return (
-    <Layout>
+    <Layout action={"signin"}>
         <Container>
-      <Row style={{marginTop:"50px"}}>
+      <Row style={{marginTop:"200px"}}>
         <Col md={{span:6,offset:3}}>
           <Form onSubmit={Signin}>
           <Input
@@ -56,7 +56,7 @@ const Signin = (props) => {
                     />
            
             <Button variant="primary" type="submit">
-              Submit
+              Signin
             </Button>
           </Form>
         </Col>

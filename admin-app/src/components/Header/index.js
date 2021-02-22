@@ -34,16 +34,20 @@ const Header = (props) => {
     return (
       <Nav>
         {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
+        {props.action==="signup" &&
         <li className="nav-item">
-          <NavLink to="signin" className="nav-link">
-            Signin
-          </NavLink>
-        </li>
+        <NavLink to="signin" className="nav-link">
+          Signin
+        </NavLink>
+      </li>
+        }
+        {props.action==="signin" &&
         <li className="nav-item">
-          <NavLink to="signup" className="nav-link">
-            Signup
-          </NavLink>
-        </li>
+        <NavLink to="signup" className="nav-link">
+          Signup
+        </NavLink>
+      </li>
+        }
       </Nav>
     );
   };

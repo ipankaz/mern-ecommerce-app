@@ -7,6 +7,7 @@ import { addToCart, getCartItems } from "../../actions/cart.action";
 import { MaterialButton } from "../../components/MaterialUI";
 import PriceDetails from "../../components/PriceDetails";
 import "./style.css";
+import {removeCartItem} from '../../actions/cart.action'
 
 /**
  * @author
@@ -42,6 +43,10 @@ const Cart = (props) => {
     dispatch(addToCart({ _id, name, price, img }, -1));
   };
 
+  const onRemoveCartItem = (_id) => {
+    dispatch(removeCartItem({ productId: _id }));
+  };
+
   if (props.onlyCartItems) {
     return (
       <>
@@ -51,6 +56,7 @@ const Cart = (props) => {
             cartItem={cartItems[key]}
             onQuantityInc={onQuantityIncrement}
             onQuantityDec={onQuantityDecrement}
+            onRemoveCartItem={onRemoveCartItem}
           />
         ))}
       </>
@@ -76,6 +82,7 @@ const Cart = (props) => {
                   cartItem={cartItems[key]}
                   onQuantityInc={onQuantityIncrement}
                   onQuantityDec={onQuantityDecrement}
+                  onRemoveCartItem={onRemoveCartItem}
                 />
               ))}
 

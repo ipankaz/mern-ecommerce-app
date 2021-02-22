@@ -1,6 +1,7 @@
 const Category = require("../../models/categories");
 const Product = require("../../models/product");
 const order = require("../../models/order");
+const brandPage = require('../../models/page')
 
 function createCategories(categories, parentId = null) {
   const categoryList = [];
@@ -29,6 +30,8 @@ exports.initialData = async (req, res) => {
   const orders = await order.find({}).populate("items.productId", "name")
   .exec();
 
+  const brandPages = await brandPage.find({}).exec()
+
   const categories = await Category.find({}).exec();
   //select in mongodb used to select the particular key elements
   // populate is like foreign key . it is used to link Category table with products
@@ -39,6 +42,7 @@ exports.initialData = async (req, res) => {
   res.status(200).json({
     categories: createCategories(categories),
     products,
-    orders
+    orders,
+    brandPages
   });
 };

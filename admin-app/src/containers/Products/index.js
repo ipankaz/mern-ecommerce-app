@@ -5,7 +5,7 @@ import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
 import { generatePublicUrl } from '../../urlConfig';
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../actions/product.action";
+import { addProduct, deleteProductById } from "../../actions/product.action";
 import { IoIosAdd,} from "react-icons/io";
 import './style.css';
 
@@ -181,7 +181,11 @@ productPrice==="" || productImage.length===0){
     }
 
     const deleteProduct=()=>{
-      console.log(productDetails._id)
+      console.log(productDetails.name)
+      const payload = {
+        productId:productDetails._id
+      }
+      dispatch(deleteProductById(payload))
       setProductDetailModal(false);
     }
 

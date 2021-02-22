@@ -8,7 +8,7 @@ import './style.css';
 const Layout = (props) => {
   return (
       <>
-    <Header/>
+    <Header action={props.action}/>
     {props.sidebar?
     <Container fluid>
     <Row>

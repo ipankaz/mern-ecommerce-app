@@ -1,0 +1,17 @@
+.greeting h4{
+text-align: center;
+margin-top: 30px;
+margin-bottom: 30px;
+}
+
+.MuiCard-root{
+    justify-content: space-between;
+    width: 700px;
+}
+
+.homeCards .row{
+margin-bottom: 20px;
+}
+.homeCards .col{
+margin-left: 100px;
+}

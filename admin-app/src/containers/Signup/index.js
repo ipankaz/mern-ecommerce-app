@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import {Container,Form,Row,Col,Button} from 'react-bootstrap'
 import Layout from '../../components/layout/index'
 import Input from '../../components/UI/Input/index'
@@ -22,11 +22,19 @@ const Signup = (props) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch()
 
+  useEffect(()=>{
+    if(!user.loading){
+      setEmail("");
+      setFirstName("");
+      setLastName("");
+      setPassword("");
+    }
+  },[user.loading])
+
    const userSignup = (event)=>{
     event.preventDefault()
     
     const user = {
-      
       firstName : firstName ,
       lastName:lastName,
       email:email,
@@ -43,15 +51,15 @@ const Signup = (props) => {
   if (user.loading) {
     return <p>Loading...!</p>;
   }
-  if (user.done) {
+  // if (user.done) {
     
-  }
+  // }
 
   return (
-    <Layout>
+    <Layout action={"signup"}>
       <Container>
         {user.message}
-        <Row style={{ marginTop: "50px" }}>
+        <Row style={{ marginTop: "180px" }}>
           <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={userSignup}>
               <Row>
@@ -91,7 +99,7 @@ const Signup = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Button variant="primary" type="submit">
-                Submit
+                Signup
               </Button>
             </Form>
           </Col>

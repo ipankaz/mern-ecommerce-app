@@ -24,10 +24,12 @@
     padding: 5px 10px;
     box-sizing: border-box;
     margin: 5px 0 5px 10px;
-    border-radius: 5px 0 0 5px;
+    /* border-radius: 5px 0 0 5px; */
     text-decoration: none;
+    transition: all 2s ease-in-out
 }
 .sidebar ul li a.active{
     background: #333;
     color: #fff;
+    
 }

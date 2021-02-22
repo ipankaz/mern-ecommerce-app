@@ -3,7 +3,8 @@ import {pageConstants} from '../actions/constants'
 const init = {
     error:null,
     loading:false,
-    page:{}
+    page:{},
+    brandPages:[]
 }
 
 const pageReducer = (state=init , action)=>{
@@ -25,6 +26,13 @@ const pageReducer = (state=init , action)=>{
                 ...state,
                 loading:false,
                 error:action.payload.error
+            }
+            break;
+            case pageConstants.GET_BRAND_PAGES_SUCCESS:
+            state={
+                ...state,
+                loading:false,
+                brandPages:action.payload.brandPages
             }
             break;
             default : state = {...state}

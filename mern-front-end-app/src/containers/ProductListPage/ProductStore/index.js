@@ -6,6 +6,7 @@ import { generatePublicUrl } from "../../../urlConfig";
 import {Link} from 'react-router-dom'
 import Card from '../../../components/UI/Card'
 import {Button} from 'react-bootstrap'
+import Price from '../../../components/UI/Price';
 
 /**
  * @author
@@ -16,14 +17,14 @@ let element=true;
 const ProductStore = (props) => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
-
-  const priceRange = {
-    under5k: 5000,
-    under10k: 10000,
-    under15k: 15000,
-    under20k: 20000,
-    under30k: 30000,
-  };
+const priceRange = product.priceRange
+  // const priceRange = {
+  //   under5k: 5000,
+  //   under10k: 10000,
+  //   under15k: 15000,
+  //   under20k: 20000,
+  //   under30k: 30000,
+  // };
 
   useEffect(()=>{
     if(element){
@@ -64,7 +65,9 @@ const ProductStore = (props) => {
                       <span>4.3</span>
                       <span>(999)</span>
                     </div>
-                    <div className="productPrice">{product.price}</div>
+                    <div className="productPrice">
+                      <Price value={product.price}></Price>
+                    </div>
                   </div>
                 </Link>
 
