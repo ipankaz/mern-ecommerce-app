@@ -6,11 +6,15 @@ import createCategoryList from "../../helpers/createCategoryList";
 import createPageAction from "../../actions/page.action";
 import { Button, Col, Row, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import Card from "../../components/UI/Card";
+import "./style.css";
 
 /**
  * @author
  * @function NewPage
  **/
+
+let element = true;
 
 const NewPage = (props) => {
   const [show, setShow] = useState(false);
@@ -24,11 +28,14 @@ const NewPage = (props) => {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.category);
   const page = useSelector((state) => state.page);
-  const linearCategory = createCategoryList(category.categories)
+  const linearCategory = createCategoryList(category.categories);
 
   useEffect(() => {
+   if(element){
     setCategories(linearCategory);
-  }, [category]);
+    element=false;
+   }
+  },[category,linearCategory]);
 
   useEffect(() => {
     if (!page.loading) {
@@ -61,8 +68,14 @@ const NewPage = (props) => {
   const handleClose = () => setShow(false);
 
   const submitCreatePageForm = (e) => {
-    if (pageName === "" || description === "" || type==="" || categoryId === "" ||
-     banners.length===0 || products.length===0) {
+    if (
+      pageName === "" ||
+      description === "" ||
+      type === "" ||
+      categoryId === "" ||
+      banners.length === 0 ||
+      products.length === 0
+    ) {
       alert("Empty Fields");
       return;
     }
@@ -95,6 +108,7 @@ const NewPage = (props) => {
           <Row>
             <Col>
               <Input
+                type="text"
                 label={"Page Name"}
                 value={pageName}
                 placeholder="Enter Page Name"
@@ -118,19 +132,19 @@ const NewPage = (props) => {
               </select> */}
 
               <Input
-              type="select"
-              value={categoryId}
-              onChange={onCategoryChange}
-              options={linearCategory}
-              placeholder={"Choose a Category"}
-              className={"form-control form-control-sm"}
+                type="select"
+                value={categoryId}
+                onChange={onCategoryChange}
+                options={linearCategory}
+                placeholder={"Choose a Category"}
+                className={"form-control form-control-sm"}
               />
-              
             </Col>
           </Row>
           <Row>
             <Col>
               <Input
+                type="text"
                 label={"Description"}
                 value={description}
                 placeholder="Enter Page Description"
@@ -184,24 +198,42 @@ const NewPage = (props) => {
 
   return (
     <Layout sidebar>
-      {
-          
-          page.loading ? 
+      {page.loading ? (
+        <Container>
+          <p>please wait.......creating New Page</p>
+        </Container>
+      ) : (
+        <>
           <Container>
-          <p>please wait.......creating New Page</p> 
-          </Container> : 
-          <>
-          <Container>
-          <Row>
-          <Col>
-            <Button onClick={handleShow}>Create Page</Button>
-          </Col>
-          </Row>
-         </Container>
-      {renderNewPageModal()}
-      </>
-      } 
-      </Layout>
+          <div className="brandHeader">
+               <span className="brandHeading">Brands Endorsed</span>
+                <Button className="brandButton" onClick={handleShow}>Create Page</Button>
+          </div>
+
+            {page.brandPages.map((brandPage, index) => (
+              <Card key={index} headerleft={brandPage.title}>
+                <div className="cardContainer">
+                <div className="branddescription">
+                  <p>Description : {brandPage.description}</p>
+                </div>
+
+                <div className="banners">
+                  <p>Banners</p>
+                  <div className="bannerImages">
+                    {brandPage.banners.map((banner, index) => (
+                      <img key={index} src={banner.img} alt="brand" />
+                    ))}
+                  </div>
+                </div>
+                </div>
+
+              </Card>
+            ))}
+          </Container>
+          {renderNewPageModal()}
+        </>
+      )}
+    </Layout>
   );
 };
 
